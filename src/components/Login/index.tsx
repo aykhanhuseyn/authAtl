@@ -1,12 +1,38 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
 import { useDispatch } from 'react-redux';
-import { login } from '../../store/slice';
+import { login, User } from '../../store/slice';
+
+const initialForm: User = {
+	username: '',
+	password: '',
+};
+
+type Action = {
+	type: 'field';
+	payload: {
+		field: 'username' | 'password';
+		value: string;
+	};
+};
+
+function loginReducer(state: User, action: Action) {
+	switch (action.type) {
+		case 'field':
+			return {
+				...state,
+				[action.payload.field]: action.payload,
+			};
+		default:
+			return state;
+	}
+}
 
 export const Login = () => {
+	// redux dispatch
 	const dispatch = useDispatch();
-
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
+	// local state as use reducer 
+	const [state, reduce] = useReducer(loginReducer, initialForm);
+	const { username, password } = state;
 
 	const logIn = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -21,7 +47,13 @@ export const Login = () => {
 			<input
 				value={username}
 				onChange={({ target: { value } }) => {
-					setUsername(value);
+					reduce({
+						type: 'field',
+						payload: {
+							field: 'username',
+							value,
+						},
+					});
 				}}
 				type='text'
 				name='username'
@@ -29,9 +61,15 @@ export const Login = () => {
 			<input
 				value={password}
 				onChange={({ target: { value } }) => {
-					setPassword(value);
+					reduce({
+						type: 'field',
+						payload: {
+							field: 'password',
+							value,
+						},
+					});
 				}}
-				type='text'
+				type='password'
 				name='password'
 			/>
 			<button type='submit'>log in</button>

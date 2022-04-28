@@ -6,7 +6,7 @@ import { userSelector, logout } from '../../store/slice';
 
 export const Main = () => {
 	const dispatch = useDispatch();
-	const user: { username: string } = useSelector(userSelector);
+	const user = useSelector(userSelector);
 
 	const handleClick = () => {
 		dispatch(logout());

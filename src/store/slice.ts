@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from './index';
 
-type User = {
+export type User = {
 	username: string;
 	password: string;
 }
-type State = {
+export type State = {
 	user: User | null;
 };
 
