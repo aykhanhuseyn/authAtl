@@ -1,23 +1,18 @@
-import { useContext } from 'react';
-import { useEffect } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { userSelector, logout } from '../../store/slice';
-import { AuthContext } from '../../context/authContext';
+// import { useContext } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { userSelector, logout } from 'store/slice';
+// import { AuthContext } from 'context/authContext';
 
 export const Main = () => {
-	// const dispatch = useDispatch();
-	// const user = useSelector(userSelector);
+	const dispatch = useDispatch();
+	const user = useSelector(userSelector);
 
-	const context = useContext(AuthContext);
-	const user = context.state.user;
-
-	useEffect(() => {
-		console.log(user);
-	}, [user]);
+	// const context = useContext(AuthContext);
+	// const user = context.state.user;
 
 	const handleClick = () => {
-		context.dispatch({ type: 'LOGOUT' });
-		// dispatch(logout());
+		// context.dispatch({ type: 'LOGOUT' });
+		dispatch(logout());
 	};
 
 	return (

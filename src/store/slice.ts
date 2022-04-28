@@ -4,7 +4,7 @@ import type { RootState } from './index';
 export type User = {
 	username: string;
 	password: string;
-}
+};
 export type State = {
 	user: User | null;
 };
