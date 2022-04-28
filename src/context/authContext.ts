@@ -1,32 +1,35 @@
 import { createContext } from 'react';
 
 type User = {
-	name: string;
+	username: string;
+	password: string;
 };
-type Database = {
+type State = {
 	user?: User;
 };
-type Action = {
-	payload: User;
-	type: 'LOGIN' | 'LOGOUT';
-};
+type Action =
+	| {
+			type: 'LOGIN';
+			payload: User;
+	  }
+	| {
+			type: 'LOGOUT';
+	  };
 
-export const initialState: Database = {};
+export const initialState: State = {};
 
 export const AuthContext = createContext<{
-	user: Database;
-	dispatch: React.Dispatch<any>;
+	state: State;
+	dispatch: React.Dispatch<Action>;
 }>({
-	user: initialState,
+	state: initialState,
 	dispatch: () => null,
 });
 
-export const reducer = (state: Database, action: Action) => {
-	console.log('reducer', state, action);
-
+export function reducer(state: State, action: Action) {
 	switch (action.type) {
 		case 'LOGIN':
-			state.user = { name: String(action.payload) };
+			state.user = action.payload;
 			return state;
 		case 'LOGOUT':
 			state.user = undefined;
@@ -34,4 +37,4 @@ export const reducer = (state: Database, action: Action) => {
 		default:
 			return state;
 	}
-};
+}
