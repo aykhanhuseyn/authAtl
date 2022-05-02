@@ -29,11 +29,9 @@ export const AuthContext = createContext<{
 export function reducer(state: State, action: Action) {
 	switch (action.type) {
 		case 'LOGIN':
-			state.user = action.payload;
-			return state;
+			return { ...state, user: action.payload };
 		case 'LOGOUT':
-			state.user = undefined;
-			return state;
+			return { ...state, user: undefined };
 		default:
 			return state;
 	}
